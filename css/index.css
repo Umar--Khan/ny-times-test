@@ -38,6 +38,10 @@ a {
   margin: 0 15px;
 }
 
+.content :last-child {
+  border-bottom: 0;
+}
+
 .btn {
   width: 100px;
   height: 40px;

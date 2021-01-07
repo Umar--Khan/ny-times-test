@@ -1,55 +1,100 @@
+const ENGLISH = "ENGLISH";
+const MARTIAN = "MARTIAN";
+
+let content = [];
+
+let currentLanguage = ENGLISH;
+
 const NYTD = {
   render_section_front: (data) => {
-    generateCardsContent(data);
+    content = data.page.content;
+    generateCardsContent(content);
   },
 };
+
+function handleLanguageButton(event, language) {
+  const martianButton = document.getElementById("btn-martian");
+  const englishButton = document.getElementById("btn-english");
+
+  if (currentLanguage === language) return;
+
+  if (language === MARTIAN) {
+    currentLanguage = MARTIAN;
+    englishButton.className = "btn";
+    generateCardsContent(content);
+  } else {
+    currentLanguage = ENGLISH;
+    martianButton.className = "btn";
+    generateCardsContent(content);
+  }
+
+  if (!event.target.classList.value.includes("btn__active")) {
+    event.target.classList.toggle("btn__active");
+  }
+}
 
 function generateCard(newsArticle) {
   const storiesContent = document.querySelector(".content");
   const card = document.createElement("div");
   card.className = "card border__bottom";
 
-  const { lastPublished, headline, summary, byline, type } = newsArticle;
+  const {
+    lastPublished,
+    headline,
+    summary,
+    byline,
+    type,
+    images,
+  } = newsArticle;
 
-  if (type !== "HTML" && lastPublished && headline && summary && byline) {
-    const lastPublishedDate = newsArticle.lastPublished.substr(
-      0,
-      lastPublished.indexOf("T")
-    );
-    let lastPublishedDateFormatted = new Date(lastPublishedDate);
-    const options = { month: "long", day: "numeric", year: "numeric" };
+  if (
+    type !== "HTML" &&
+    lastPublished &&
+    headline &&
+    summary &&
+    byline &&
+    images.length
+  ) {
+    const lastPublishedDateFormatted = formatPublishDate(lastPublished);
 
-    lastPublishedDateFormatted = lastPublishedDateFormatted.toLocaleDateString(
-      "EN-us",
-      options
-    );
+    const { caption } = images[0];
+
+    let translatedHeadline = headline;
+    let translatedSummary = summary;
+    let translatedByline = byline;
+
+    if (currentLanguage === MARTIAN) {
+      translatedHeadline = martianFormatText(headline);
+      translatedSummary = martianFormatText(summary);
+      translatedByline = martianFormatText(byline);
+    }
 
     card.innerHTML = `
     <div>
         <span class="tag">${lastPublishedDateFormatted}</span>
         <div class="card__content">
           <div class="card__left">
-            <h2>${headline}</h2>
-            <p>${summary}</p>
+            <h2>${translatedHeadline}</h2>
+            <p>${translatedSummary}</p>
           </div>
           <div class="card__right">
-            <img class="card__img" src="https://via.placeholder.com/320x210" alt="placeholder" />
+            <img class="card__img" src="https://via.placeholder.com/320x210" alt="${caption}" />
           </div>
         </div>
-        <p class="tag">${byline}</p>
+        <p class="tag">${translatedByline}</p>
     </div>
     `;
     storiesContent.appendChild(card);
   }
 }
 
-function generateCardsContent(data) {
-  const content = data.page.content;
-
+function generateCardsContent(content) {
+  const storiesContent = document.querySelector(".content");
+  storiesContent.innerHTML = "";
   content.map((contentItem) => {
     contentItem.collections.map((collection) => {
       if (collection.assets.length >= 1) {
-        collection.assets.map((asset) => generateCard(asset));
+        collection.assets.map((newsArticle) => generateCard(newsArticle));
       }
     });
   });

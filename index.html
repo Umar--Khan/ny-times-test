@@ -9,6 +9,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/index.css" />
+    <script defer type="text/javascript" src="js/utils.js"></script>
     <script defer type="text/javascript" src="js/fetch.js"></script>
     <script defer type="text/javascript" src="js/index.js"></script>
   </head>
@@ -18,8 +19,20 @@
         <img src="img/Logo.png" alt="T Brand Studio" />
       </div>
       <div class="navbar__right">
-        <button class="btn btn__active">English</button>
-        <button class="btn">Martian</button>
+        <button
+          class="btn btn__active"
+          id="btn-english"
+          onclick="handleLanguageButton(event, ENGLISH)"
+        >
+          English
+        </button>
+        <button
+          class="btn"
+          id="btn-martian"
+          onclick="handleLanguageButton(event, MARTIAN)"
+        >
+          Martian
+        </button>
       </div>
     </header>
     <div class="content"></div>
