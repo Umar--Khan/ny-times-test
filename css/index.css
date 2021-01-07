@@ -13,6 +13,10 @@ h6 {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 .navbar {
   display: flex;
   flex-direction: column;
@@ -92,6 +96,30 @@ h6 {
   line-height: 19px;
 }
 
+.footer {
+  text-align: center;
+  background-color: black;
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  padding: 26px 0;
+}
+
+.footer__top {
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.footer__bottom span {
+  font-weight: normal;
+}
+
+.divider {
+  margin: 0 6px;
+  display: none;
+}
+
 @media (min-width: 800px) {
   .navbar {
     flex-direction: row;
@@ -116,5 +144,20 @@ h6 {
   .content {
     margin-left: 95px;
     margin-right: 40px;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+  }
+
+  .divider {
+    display: block;
+  }
+
+  .footer__top {
+    font-weight: normal;
   }
 }
