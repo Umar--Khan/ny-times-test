@@ -45,6 +45,7 @@ function generateCard(newsArticle) {
     byline,
     type,
     images,
+    url,
   } = newsArticle;
 
   if (
@@ -53,10 +54,10 @@ function generateCard(newsArticle) {
     headline &&
     summary &&
     byline &&
+    url &&
     images.length
   ) {
     const lastPublishedDateFormatted = formatPublishDate(lastPublished);
-
     const { caption } = images[0];
 
     let translatedHeadline = headline;
@@ -70,8 +71,8 @@ function generateCard(newsArticle) {
     }
 
     card.innerHTML = `
-    <div>
-        <span class="tag">${lastPublishedDateFormatted}</span>
+    <a class="card__link" href=${url} target="_blank" rel="noopener noreferrer">
+      <span class="tag">${lastPublishedDateFormatted}</span>
         <div class="card__content">
           <div class="card__left">
             <h2>${translatedHeadline}</h2>
@@ -81,8 +82,8 @@ function generateCard(newsArticle) {
             <img class="card__img" src="https://via.placeholder.com/320x210" alt="${caption}" />
           </div>
         </div>
-        <p class="tag">${translatedByline}</p>
-    </div>
+      <p class="tag">${translatedByline}</p>
+    </a>
     `;
     storiesContent.appendChild(card);
   }

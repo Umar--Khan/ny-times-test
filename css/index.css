@@ -15,6 +15,7 @@ h6 {
 
 a {
   text-decoration: none;
+  color: black;
 }
 
 .navbar {
@@ -73,6 +74,64 @@ a {
 .card {
   margin-top: 20px;
   padding-bottom: 20px;
+  cursor: pointer;
+  animation: fadeIn ease 1.5s;
+  -webkit-animation: fadeIn ease 1.5s;
+  -moz-animation: fadeIn ease 1.5s;
+  -o-animation: fadeIn ease 1.5s;
+  -ms-animation: fadeIn ease 1.5s;
+}
+
+.card:hover {
+  border-bottom: 0;
+  transform: scale(1.01);
+  box-shadow: 0 15px 10px -10px rgba(31, 31, 31, 0.5);
+  transition: all 0.3s ease;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .card__content {
@@ -84,8 +143,8 @@ a {
 }
 
 .card__img {
-  width: 100%;
-  height: 100%;
+  width: 135px;
+  height: 88px;
 }
 
 .card__left h2 {
@@ -124,7 +183,39 @@ a {
   display: none;
 }
 
-@media (min-width: 800px) {
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-top: 2px solid #dbdce0;
+  text-align: end;
+  padding: 36px 0;
+}
+
+.pagination__text {
+  font-size: 15px;
+}
+
+.pagination__left {
+  background: url("/img/left-arrow.png");
+  margin-left: 15px;
+}
+
+.pagination__right {
+  background: url("/img/right-arrow.png");
+  margin: 0 34px;
+}
+
+.pagination__left,
+.pagination__right {
+  background-repeat: no-repeat;
+  height: 23px;
+  width: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
   .navbar {
     flex-direction: row;
     padding: 45px 40px 35px 95px;
@@ -163,5 +254,10 @@ a {
 
   .footer__top {
     font-weight: normal;
+  }
+
+  .card__img {
+    width: 100%;
+    height: 100%;
   }
 }
